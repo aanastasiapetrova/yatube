@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Технологии{% endblock %}
+{% block content %}
+{% load static %}
+<div class="row">
+  <h1>Вот что я умею</h1>
+  <aside class="col-12 col-md-3">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <a href="https://ru.wikipedia.org/wiki/Python" id="python">Python</a>
+      </li>
+      <li class="list-group-item">
+        <a href="https://ru.wikipedia.org/wiki/Django">Django</a>
+      </li>
+      <li class="list-group-item">
+        <a href="https://ru.wikipedia.org/wiki/HTML">HTML</a>
+      </li>
+      <li class="list-group-item">
+        <a href="https://ru.wikipedia.org/wiki/CSS">CSS</a>
+      </li>
+      <li class="list-group-item">
+        <img src="{% static 'img/about/mem.jpg' %}" style="width: 100%;
+        height: 100%; object-fit: inherit"></img>
+      </li>
+    </ul>
+  </aside>
+  <article class="col-12 col-md-9">
+    <p><span style="font-weight: bold">Python</span> — высокоуровневый язык программирования общего назначения с динамической строгой типизацией и автоматическим управлением памятью, 
+      ориентированный на повышение производительности разработчика, читаемости кода и его качества, а также на обеспечение переносимости написанных на нём программ.</p>
+    <p><span style="font-weight: bold">Django</span> — свободный фреймворк для веб-приложений на языке Python, использующий шаблон проектирования MVC. Проект поддерживается организацией Django Software Foundation. 
+      Сайт на Django строится из одного или нескольких приложений, которые рекомендуется делать отчуждаемыми и подключаемыми.</p>
+    <p><span style="font-weight: bold">HTML</span> — стандартизированный язык гипертекстовой разметки документов для просмотра веб-страниц в браузере. Веб-браузеры получают HTML документ от сервера по протоколам HTTP/HTTPS или открывают с локального диска, 
+      далее интерпретируют код в интерфейс, который будет отображаться на экране монитора.</p>
+    <p><span style="font-weight: bold">CSS</span>  — формальный язык описания внешнего вида документа, написанного с использованием языка разметки. Также может применяться к любым XML-документам, например, к SVG или XUL.</p>
+    </article>
+</div>
+{% endblock %} 

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Об авторе проекта{% endblock %}
+{% block content %}
+{% load static %}
+<div class="row justify-content-center">
+  <div class="col-12 col-md-8">
+    <h1>Привет, я автор!</h1>
+    <p>
+      Меня зовут Петрова Анастасия, мне 21 год. Учусь в Ульяновском 
+      государственном техническом университете на специальности "Информационные
+      системы и технологии". 
+    </p>
+    <p>
+      GitHub: <a href="https://github.com/aanastasiapetrova">https://github.com/aanastasiapetrova</a>
+    </p>
+    <p>
+      Telegram: <a href="https://t.me/anastasiaapetrovaa">https://t.me/anastasiaapetrovaa</a>
+    </p>
+    <p>
+      VK: <a href="https://vk.com/anastasia.petrovaa">https://vk.com/anastasia.petrovaa</a>
+    </p>
+  </div>
+  <div class="col-12 col-md-4">
+    <img src="{% static 'img/about/me.jpg' %}" style="width: 100%;
+    height: 100%; object-fit: inherit"></img>
+  </div>
+</div>
+{% endblock %} 

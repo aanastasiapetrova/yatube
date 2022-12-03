@@ -66,10 +66,10 @@ class PostViewsTests(TestCase):
 
     def setUp(self):
         self.guest_client = Client()
-        self.authorized_client = Client()
-        self.authorized_client.force_login(self.user_ivan)
-        self._authorized_client = Client()
-        self._authorized_client.force_login(self.user_vasya)
+        self.auth_client = Client()
+        self.auth_client.force_login(self.user_ivan)
+        self.new_auth_client = Client()
+        self.new_auth_client.force_login(self.user_vasya)
 
     def test_views_uses_correct_templates(self):
         """Вью-функции используют соответствующие шаблоны"""
@@ -88,7 +88,7 @@ class PostViewsTests(TestCase):
         }
         for reverse_name, template in views_templates.items():
             with self.subTest(reverse_name=reverse_name):
-                response = self.authorized_client.get(reverse_name)
+                response = self.auth_client.get(reverse_name)
                 self.assertTemplateUsed(response, template)
 
     def test_index_page_show_correct_context(self):
@@ -135,7 +135,7 @@ class PostViewsTests(TestCase):
 
     def test_post_create_show_correct_context(self):
         """Шаблон post_create сформирован с правльным контекстом"""
-        response = self.authorized_client.get(reverse('posts:post_create'))
+        response = self.auth_client.get(reverse('posts:post_create'))
         form_fields = {
             'text': forms.fields.CharField,
             'group': forms.fields.ChoiceField,
@@ -149,8 +149,8 @@ class PostViewsTests(TestCase):
 
     def test_post_edit_show_correct_context(self):
         """Шаблон post_edit сформирован с правильным контекстом"""
-        response = self.authorized_client.get(reverse('posts:post_edit', args=(
-                                              PostViewsTests.ivans_post.id,
+        response = self.auth_client.get(reverse('posts:post_edit',
+                                        args=(PostViewsTests.ivans_post.id,
                                               )))
         picked_post = response.context['post']
         form_fields = {
@@ -199,12 +199,12 @@ class PostViewsTests(TestCase):
         post = Post.objects.create(
             text='Кешируемый пост',
             author=self.user_ivan)
-        added = self.authorized_client.get(reverse('posts:index')).content
+        added = self.auth_client.get(reverse('posts:index')).content
         post.delete()
-        deleted = self.authorized_client.get(reverse('posts:index')).content
+        deleted = self.auth_client.get(reverse('posts:index')).content
         self.assertEqual(added, deleted)
         cache.clear()
-        cleaned = self.authorized_client.get(reverse('posts:index')).content
+        cleaned = self.auth_client.get(reverse('posts:index')).content
         self.assertNotEqual(added, cleaned)
 
     def test_follow_index(self):
@@ -213,9 +213,9 @@ class PostViewsTests(TestCase):
         new_post = Post.objects.create(
             text='Новый пост',
             author=self.user_petr)
-        follower = self.authorized_client.get(reverse('posts:follow_index'))
+        follower = self.auth_client.get(reverse('posts:follow_index'))
         follower_context = follower.context['page_obj']
-        unfollower = self._authorized_client.get(reverse('posts:follow_index'))
+        unfollower = self.new_auth_client.get(reverse('posts:follow_index'))
         unfollower_context = unfollower.context['page_obj']
         self.assertIn(new_post, follower_context)
         self.assertNotIn(new_post, unfollower_context)

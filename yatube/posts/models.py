@@ -20,7 +20,8 @@ class Post(models.Model):
     )
     pub_date = models.DateTimeField(
         'Дата публикации',
-        auto_now_add=True)
+        auto_now_add=True
+    )
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -68,7 +69,8 @@ class Comment(models.Model):
     )
     created = models.DateTimeField(
         'Дата публикации комментария',
-        auto_now_add=True)
+        auto_now_add=True
+    )
 
 
 class Follow(models.Model):
